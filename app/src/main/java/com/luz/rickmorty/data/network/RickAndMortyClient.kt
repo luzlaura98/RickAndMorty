@@ -12,10 +12,10 @@ import retrofit2.http.Query
  */
 interface RickAndMortyClient {
 
-    @GET("/character/")
+    @GET("character/")
     suspend fun getCharacters(@Query("page") page : Int) : BaseListResponse<Character>
 
-    @GET("/character/{characterId}")
+    @GET("character/{characterId}")
     suspend fun getCharacter(@Path("characterId") characterId : Int) : CharacterResponse
 
 }

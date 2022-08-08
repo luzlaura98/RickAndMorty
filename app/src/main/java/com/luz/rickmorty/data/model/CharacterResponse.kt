@@ -11,5 +11,7 @@ data class CharacterResponse(
     @SerializedName("id")
     val id : Int,
     @SerializedName("name")
-    val name : String?
+    val name : String?,
+    @SerializedName("image")
+    val image : String?
 )

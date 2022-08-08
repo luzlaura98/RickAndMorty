@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.luz.rickmorty"
@@ -32,6 +32,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -40,9 +43,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
 
+    // SwipeRefreshLayout
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     //Glide
@@ -54,9 +60,31 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$dagger_hilt_version"
 
 
-    //Navigation////////////////////////////////////////////////
+    // region Paging////////////////////////////////////////////////
+    def paging_version = "3.1.1"
 
-    def nav_version = "2.5.0"
+    implementation("androidx.paging:paging-runtime:$paging_version")
+
+    // alternatively - without Android dependencies for tests
+    //testImplementation("androidx.paging:paging-common:$paging_version")
+
+    // optional - RxJava2 support
+    //implementation("androidx.paging:paging-rxjava2:$paging_version")
+
+    // optional - RxJava3 support
+    //implementation("androidx.paging:paging-rxjava3:$paging_version")
+
+    // optional - Guava ListenableFuture support
+    //implementation("androidx.paging:paging-guava:$paging_version")
+
+    // optional - Jetpack Compose integration
+    //implementation("androidx.paging:paging-compose:1.0.0-alpha15")
+
+    // endregion Paging
+
+    // region Navigation////////////////////////////////////////////////
+
+    def nav_version = "2.5.1"
 
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -70,6 +98,8 @@ dependencies {
 
     // Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:$nav_version"
+
+    // endregion Navigation
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Rick And Morty</string>
+
+    <!-- Api Error -->
+    <string name="internet_error">Sin conexión a internet</string>
+    <string name="time_out_error">Tiempo de Respuesta exedido</string>
+    <string name="port_connection_error">Error de conexión</string>
+    <string name="invalid_page_error">Página inválida</string>
+    <string name="unknown_error">Un error desconocido ocurrió</string>
+    <string name="server_error">Error del servidor</string>
+    <string name="ssl_error">SSL Certificate Error</string>
+    <string name="default_message_error">Algo falló</string>
+
+    <!--Character Status-->
+    <string name="status_unknown">Unknown</string>
+    <string name="status_alive">Alive</string>
+    <string name="status_dead">Dead</string>
+
+    <!--Placeholder-->
+    <string name="placeholder_title">¡Ups!</string>
+    <string name="no_results">Nada por aquí</string>
+
 </resources>
