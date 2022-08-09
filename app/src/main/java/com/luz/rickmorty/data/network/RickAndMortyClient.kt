@@ -3,6 +3,7 @@ package com.luz.rickmorty.data.network
 import com.luz.rickmorty.data.model.BaseListResponse
 import com.luz.rickmorty.data.model.Character
 import com.luz.rickmorty.data.model.CharacterResponse
+import com.luz.rickmorty.data.model.Episode
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -18,4 +19,6 @@ interface RickAndMortyClient {
     @GET("character/{characterId}")
     suspend fun getCharacter(@Path("characterId") characterId : Int) : CharacterResponse
 
+    @GET("episode/{episodeId}")
+    suspend fun getEpisode(@Path("episodeId") episodeId : Int) : Episode
 }

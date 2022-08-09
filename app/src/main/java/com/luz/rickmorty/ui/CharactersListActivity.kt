@@ -2,6 +2,7 @@ package com.luz.rickmorty.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.luz.rickmorty.data.model.Character
 import com.luz.rickmorty.data.network.Result
+import com.luz.rickmorty.data.network.parseError
 import com.luz.rickmorty.data.repository.CharacterRepository
 import com.luz.rickmorty.databinding.ActivityCharactersListBinding
 import com.luz.rickmorty.databinding.PartialPlaceholderBinding
@@ -35,6 +37,9 @@ class CharactersListActivity : BaseActivity() {
     override val partialPlaceholderBinding: PartialPlaceholderBinding
         get() = PartialPlaceholderBinding.bind(binding.placeholderContainer.root)
 
+    override val onRetry: (() -> Unit)
+        get() = { adapter.refresh() }
+
     private val adapter : CharactersAdapter by lazy { CharactersAdapter(this::onClickCharacter) }
 
     @Inject
@@ -47,10 +52,9 @@ class CharactersListActivity : BaseActivity() {
         binding = ActivityCharactersListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        showLoading(false)
         initAdapter()
         initSwipeToRefresh()
-
-        showLoading(false)
     }
 
     private fun initSwipeToRefresh(){
@@ -89,36 +93,42 @@ class CharactersListActivity : BaseActivity() {
 
             lifecycleScope.launch {
                 whenCreated {
+                    //        header.loadState = loadStates.refresh
+                    //        footer.loadState = loadStates.append
                     adapter.loadStateFlow.collect{ loadStates ->
-                        Log.i("LOAD_STATES", "$loadStates " )
+                        Log.i("LOAD_STATES", "$loadStates" )
+                        when(loadStates.refresh){
+                            is LoadState.Loading -> showLoading(true)
+                            is LoadState.Error -> {
+                                //si hubo error no para por notLoading
+                                val error = (loadStates.refresh as LoadState.Error).error
+                                showPlaceholderMessage(error.parseError(context)){ adapter.refresh() }
+                            }
+                            is LoadState.NotLoading -> {
+                                showLoading(false)
+                            }
+                        }
                         binding.swipeRefresh.isRefreshing = loadStates.mediator?.refresh is LoadState.Loading
                     }
                 }
             }
-
-            /*
-            lifecycleScope.launchWhenCreated {
-                adapter.loadStateFlow
-                    //.asMergedLoadStates()
-                    .distinctUntilChangedBy { it.refresh }
-                    .filter { it.refresh is LoadState.NotLoading }
-                    .collect{ binding.rvCharacters.scrollToPosition(0) }
-            }*/
         }
     }
 
     private fun onClickCharacter(character: Character) {
-
+        startActivity(
+            CharacterDetailActivity.buildIntent(this, character)
+        )
     }
 
     override fun showLoading(isLoading: Boolean) {
         super.showLoading(isLoading)
-        binding.rvCharacters.isVisible = !isLoading
+        binding.swipeRefresh.isVisible = !isLoading
     }
 
-    override fun showPlaceholderMessage(message: String?) {
-        super.showPlaceholderMessage(message)
-        binding.rvCharacters.isVisible = false
+    override fun showPlaceholderMessage(message: String?, onRetry: (() -> Unit)?) {
+        super.showPlaceholderMessage(message, onRetry)
+        binding.swipeRefresh.isVisible = false
     }
 
 }

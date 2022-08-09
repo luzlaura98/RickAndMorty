@@ -16,6 +16,10 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
+    <include
+        android:id="@+id/placeholderContainer"
+        layout="@layout/partial_placeholder" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
@@ -25,10 +29,6 @@
             android:id="@+id/rvCharacters"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-        <include
-            android:id="@+id/placeholderContainer"
-            layout="@layout/partial_placeholder" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

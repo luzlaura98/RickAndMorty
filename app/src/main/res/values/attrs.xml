@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StatusView">
+        <attr name="status" format="enum">
+            <enum name="unknown" value="0" />
+            <enum name="alive" value="1" />
+            <enum name="dead" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="AttributeCharacterView">
+        <attr name="title" format="string" />
+        <attr name="body" format="string" />
+    </declare-styleable>
+</resources>

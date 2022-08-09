@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.luz.rickmorty.R
+import com.luz.rickmorty.data.network.parseError
 import com.luz.rickmorty.databinding.NetworkStateItemBinding
 
 /**
@@ -27,7 +28,7 @@ class NetworkStateItemViewHolder(
         with(binding){
             pbLoading.isVisible = loadState is LoadState.Loading
             btnRetry.isVisible = loadState is LoadState.Error
-            tvErrorMessage.text = (loadState as? LoadState.Error)?.error?.message
+            tvErrorMessage.text = (loadState as? LoadState.Error)?.error?.parseError(root.context)
             tvErrorMessage.isVisible = !(loadState as? LoadState.Error)?.error?.message.isNullOrBlank()
         }
     }

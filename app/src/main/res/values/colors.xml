@@ -2,8 +2,11 @@
 <resources>
 
     <color name="primaryColor">#00acc1</color>
-    <color name="primaryLightColor">#5ddef4</color>
+    <color name="primaryLightColor">#4FCDE3</color>
     <color name="primaryDarkColor">#007c91</color>
+
+    <color name="primaryLightInverseColor">#CCCCCC</color>
+    <color name="primaryDarkInverseColor">#535353</color>
 
     <color name="secondaryColor">#7cb342</color>
     <color name="secondaryLightColor">#aee571</color>
@@ -12,6 +15,7 @@
     <color name="primaryLightTextColor">#CCCCCC</color>
     <color name="secondaryLightTextColor">#D5D5D5</color>
     <color name="onBackgroundLightColor">#E4E4E4</color>
+
     <color name="primaryDarkTextColor">#535353</color>
     <color name="secondaryDarkTextColor">#454545</color>
     <color name="onBackgroundDarkColor">#2B2B2B</color>
@@ -26,6 +30,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="status_alive">#4CAF50</color> <!--Green 50 500-->
-    <color name="status_dead">#F44336</color> <!--Red 50 500-->
+    <color name="status_alive">#3FCA45</color> <!--Green 50 500-->
+    <color name="status_dead">#ED3B2E</color> <!--Red 50 500-->
+    <color name="status_unknown">#777777</color>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="StatusViewStyle" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:background">@drawable/bg_rounded</item>
+        <item name="background">@drawable/bg_rounded</item>
+        <item name="android:gravity">center</item>
+        <item name="drawableStartCompat">@drawable/ic_status_alive</item>
+        <item name="android:drawablePadding">@dimen/dimen_small_1_size</item>
+        <item name="android:textSize">@dimen/text_medium_size</item>
+    </style>
+</resources>

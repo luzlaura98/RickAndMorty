@@ -33,19 +33,6 @@ class CharactersAdapter(
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
-    /*override fun onBindViewHolder(
-        holder: CharacterViewHolder,
-        position: Int,
-        payloads: MutableList<Any>
-    ) {
-        if (payloads.isNotEmpty()) {
-            val item = getItem(position)
-            holder.updateScore(item)
-        } else {
-            onBindViewHolder(holder, position)
-        }
-    }*/
 }
 
 class CharacterViewHolder(

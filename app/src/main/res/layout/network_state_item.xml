@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="8dp">
 
@@ -13,10 +14,10 @@
         android:layout_gravity="center_horizontal"
         tools:text="@string/default_message_error" />
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/pbLoading"
-        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
+        app:indeterminateAnimationType="disjoint"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
@@ -26,5 +27,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/retry" />
+        android:text="@string/retry_" />
 </LinearLayout>
