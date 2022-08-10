@@ -1,19 +1,15 @@
 package com.luz.rickmorty.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.*
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.NavHostFragment
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.luz.rickmorty.data.model.Character
-import com.luz.rickmorty.data.network.Result
 import com.luz.rickmorty.data.network.parseError
 import com.luz.rickmorty.data.repository.CharacterRepository
 import com.luz.rickmorty.databinding.ActivityCharactersListBinding
@@ -22,7 +18,7 @@ import com.luz.rickmorty.ui.adapters.CharactersAdapter
 import com.luz.rickmorty.ui.adapters.CharactersLoadStateAdapter
 import com.luz.rickmorty.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,13 +30,18 @@ class CharactersListActivity : BaseActivity() {
 
     private lateinit var binding: ActivityCharactersListBinding
 
+    private val previewFragment: CharacterPreviewFragment? by lazy {
+        val fragmentManager = binding.fragmentContainerView?.getFragment<NavHostFragment>()?.childFragmentManager
+        (fragmentManager?.fragments?.firstOrNull()) as? CharacterPreviewFragment
+    }
+
     override val partialPlaceholderBinding: PartialPlaceholderBinding
-        get() = PartialPlaceholderBinding.bind(binding.placeholderContainer.root)
+        get() = PartialPlaceholderBinding.bind(binding.characterListContainer.placeholderContainer.root)
 
     override val onRetry: (() -> Unit)
         get() = { adapter.refresh() }
 
-    private val adapter : CharactersAdapter by lazy { CharactersAdapter(this::onClickCharacter) }
+    private val adapter: CharactersAdapter by lazy { CharactersAdapter(this::onClickCharacter) }
 
     @Inject
     lateinit var characterRepository: CharacterRepository
@@ -55,80 +56,103 @@ class CharactersListActivity : BaseActivity() {
         showLoading(false)
         initAdapter()
         initSwipeToRefresh()
-    }
+        initFloatingActionButton()
 
-    private fun initSwipeToRefresh(){
-        binding.swipeRefresh.setOnRefreshListener {
-            adapter.refresh()
-        }
-    }
-
-    private fun initFloatingActionButton() {
-        with(binding) {
-            fbScrollToTop.isVisible = true
-            fbScrollToTop.setOnClickListener {
-                rvCharacters.smoothScrollToPosition(0)
+        viewModel.lastCharacterSelected?.let { character ->
+            if (binding.fragmentContainerView != null) {
+                previewFragment?.show(character)
             }
         }
     }
 
-    private fun initAdapter(){
-        with(binding) {
+    private fun initSwipeToRefresh() {
+        binding.characterListContainer.swipeRefresh.apply {
+            setOnRefreshListener {
+                viewModel.lastCharacterSelected = null
+                isRefreshing = false
+                adapter.refresh()
+            }
+        }
+    }
+
+    private fun initFloatingActionButton() {
+        binding.characterListContainer.fbScrollToTop.setOnClickListener {
+            binding.characterListContainer.rvCharacters.smoothScrollToPosition(0)
+        }
+    }
+
+    private fun initAdapter() {
+        with(binding.characterListContainer) {
             rvCharacters.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             rvCharacters.addItemDecoration(
                 DividerItemDecoration(
                     context,
-                    LinearLayoutManager.HORIZONTAL
+                    LinearLayoutManager.VERTICAL
                 )
             )
             rvCharacters.adapter = adapter.withLoadStateFooter(CharactersLoadStateAdapter(adapter))
 
             lifecycleScope.launch {
-                //whenCreated {  }
                 viewModel.myFlow.collectLatest { pagingData ->
                     adapter.submitData(pagingData)
                 }
             }
 
-            lifecycleScope.launch {
-                whenCreated {
-                    //        header.loadState = loadStates.refresh
-                    //        footer.loadState = loadStates.append
-                    adapter.loadStateFlow.collect{ loadStates ->
-                        Log.i("LOAD_STATES", "$loadStates" )
-                        when(loadStates.refresh){
-                            is LoadState.Loading -> showLoading(true)
+            lifecycleScope.launchWhenCreated {
+                adapter.loadStateFlow
+                    // Only emit when REFRESH LoadState for RemoteMediator changes.
+                    .distinctUntilChangedBy { it.refresh }
+                    // Scroll to top is synchronous with UI updates, even if remote load was
+                    // triggered.
+                    .collect { loadStates ->
+                        when (loadStates.refresh) {
+                            is LoadState.Loading -> {
+                                showLoading(true)
+                            }
                             is LoadState.Error -> {
-                                //si hubo error no para por notLoading
+                                // When LoadState is Error, it will not pass for NotLoading
                                 val error = (loadStates.refresh as LoadState.Error).error
-                                showPlaceholderMessage(error.parseError(context)){ adapter.refresh() }
+                                showPlaceholderMessage(error.parseError(context)) { adapter.refresh() }
                             }
                             is LoadState.NotLoading -> {
                                 showLoading(false)
+                                binding.fragmentContainerView?.let {
+                                    if (viewModel.lastCharacterSelected == null){
+                                        val firstCharacter = adapter.snapshot().firstOrNull()
+                                        if (firstCharacter != null){
+                                            viewModel.lastCharacterSelected = firstCharacter
+                                            previewFragment?.show(firstCharacter)
+                                        }
+                                    }
+                                }
                             }
                         }
-                        binding.swipeRefresh.isRefreshing = loadStates.mediator?.refresh is LoadState.Loading
                     }
-                }
             }
         }
     }
 
     private fun onClickCharacter(character: Character) {
-        startActivity(
-            CharacterDetailActivity.buildIntent(this, character)
-        )
+        viewModel.lastCharacterSelected = character
+        if (binding.fragmentContainerView != null){
+            previewFragment?.show(character)
+        }else{
+            startActivity(
+                CharacterDetailActivity.buildIntent(this, character)
+            )
+        }
     }
 
     override fun showLoading(isLoading: Boolean) {
         super.showLoading(isLoading)
-        binding.swipeRefresh.isVisible = !isLoading
+        binding.characterListContainer.fbScrollToTop.isVisible = !isLoading
+        binding.characterListContainer.swipeRefresh.isVisible = !isLoading
     }
 
     override fun showPlaceholderMessage(message: String?, onRetry: (() -> Unit)?) {
         super.showPlaceholderMessage(message, onRetry)
-        binding.swipeRefresh.isVisible = false
+        binding.characterListContainer.swipeRefresh.isVisible = false
     }
 
 }

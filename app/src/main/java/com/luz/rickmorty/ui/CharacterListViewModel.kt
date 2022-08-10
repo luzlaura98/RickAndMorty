@@ -1,24 +1,15 @@
 package com.luz.rickmorty.ui
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.luz.rickmorty.data.model.Character
-import com.luz.rickmorty.data.network.Result
 import com.luz.rickmorty.data.repository.CharacterRepository
 import com.luz.rickmorty.data.repository.CharactersPagingSource
-import com.luz.rickmorty.data.repository.InMemoryByPageKeyRepository
 import com.luz.rickmorty.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -30,6 +21,8 @@ class CharacterListViewModel @Inject constructor(
     private val repository: CharacterRepository
 ) : BaseViewModel(application) {
 
+    var lastCharacterSelected : Character? = null
+
     val myFlow = Pager(
         // Configure how data is loaded by passing additional properties to
         // PagingConfig, such as prefetchDistance.
@@ -37,5 +30,5 @@ class CharacterListViewModel @Inject constructor(
     ){
         CharactersPagingSource(repository.appService)
     }.flow
-        .cachedIn(viewModelScope) //permite que el flujo de datos se pueda compartir y almacena en caché los datos cargados con el CoroutineScope proporcionado.
+        .cachedIn(viewModelScope)
 }

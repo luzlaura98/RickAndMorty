@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_small_size">10sp</dimen>
+    <dimen name="text_medium_0_size">12sp</dimen>
+    <dimen name="text_medium_1_size">14sp</dimen>
+    <dimen name="text_big_0_size">20sp</dimen>
+    <dimen name="text_big_1_size">32sp</dimen>
+
+    <dimen name="margin_app">15dp</dimen>
+
+    <dimen name="dimen_small_0_size">1dp</dimen>
+    <dimen name="dimen_small_1_size">3dp</dimen>
+    <dimen name="dimen_small_2_size">5dp</dimen>
+    <dimen name="dimen_medium_0_size">8dp</dimen>
+    <dimen name="dimen_medium_1_size">12dp</dimen>
+    <dimen name="dimen_big_0_size">18dp</dimen>
+    <dimen name="dimen_big_1_size">27dp</dimen>
+    <dimen name="dimen_big_2_size">50dp</dimen>
+
+    <dimen name="stroke_width_0">0.5dp</dimen>
+    <dimen name="stroke_width_1">1dp</dimen>
+    <dimen name="item_character_size">42dp</dimen>
+    <dimen name="max_character_preview_size">200dp</dimen>
+    <dimen name="snackbar_icon_padding">7dp</dimen>
+</resources>

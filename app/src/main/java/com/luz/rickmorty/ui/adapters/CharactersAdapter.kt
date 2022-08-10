@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.luz.rickmorty.data.model.Character
 import com.luz.rickmorty.databinding.ItemCharacterBinding
+import com.luz.rickmorty.ui.utils.StatusConverter
 
 /**
  * Created by Luz on 3/8/2022.
@@ -62,6 +63,9 @@ class CharacterViewHolder(
                 .into(ivCharacter)
             root.setOnClickListener {
                 if (item != null) onClick(item)
+            }
+            statusView?.apply {
+                currentStatus = StatusConverter.from(item?.status)
             }
         }
     }

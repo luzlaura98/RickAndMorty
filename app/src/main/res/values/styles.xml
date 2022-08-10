@@ -6,6 +6,6 @@
         <item name="android:gravity">center</item>
         <item name="drawableStartCompat">@drawable/ic_status_alive</item>
         <item name="android:drawablePadding">@dimen/dimen_small_1_size</item>
-        <item name="android:textSize">@dimen/text_medium_size</item>
+        <item name="android:textSize">@dimen/text_small_size</item>
     </style>
 </resources>

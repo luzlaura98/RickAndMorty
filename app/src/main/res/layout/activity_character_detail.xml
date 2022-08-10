@@ -1,119 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:fillViewport="true"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <FrameLayout
-            android:id="@+id/imageContainer"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="5:4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/ivCharacter"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:foreground="@drawable/bg_gradient_title"
-                android:scaleType="centerCrop"
-                android:src="@drawable/img_sample_character" />
-
-            <com.luz.rickmorty.ui.utils.StatusView
-                android:id="@+id/statusView"
-                style="@style/StatusViewStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_marginHorizontal="@dimen/margin_app"
-                app:status="unknown" />
-        </FrameLayout>
-
-        <!--<TextView
-            android:id="@+id/tvCharacterName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:paddingHorizontal="@dimen/margin_app"
-            android:text="Rick Large Name"
-            android:textColor="?colorAccent"
-            android:textSize="@dimen/text_big_0_size"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/imageContainer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageContainer" />
--->
-
-        <TextView
-            android:id="@+id/tvQuantityEpisodes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_app"
-            android:layout_marginTop="@dimen/dimen_medium_1_size"
-            tools:text="Rick appeared in 20 episodes."
-            android:textColor="?colorPrimaryVariant"
-            android:textSize="@dimen/text_medium_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageContainer" />
-
-        <GridLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_app"
-            android:layout_marginTop="@dimen/dimen_medium_0_size"
-            android:columnCount="2"
-            android:useDefaultMargins="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvQuantityEpisodes">
-
-            <com.luz.rickmorty.ui.utils.AttributeCharacterView
-                android:id="@+id/mSpecies"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                app:title="@string/species" />
-
-            <com.luz.rickmorty.ui.utils.AttributeCharacterView
-                android:id="@+id/mType"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                app:title="@string/type" />
-
-            <com.luz.rickmorty.ui.utils.AttributeCharacterView
-                android:id="@+id/mGender"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                app:title="@string/gender" />
-
-            <com.luz.rickmorty.ui.utils.AttributeCharacterView
-                android:id="@+id/mOrigin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                app:title="@string/origin" />
-
-            <com.luz.rickmorty.ui.utils.AttributeCharacterView
-                android:id="@+id/mLocation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                app:title="@string/location" />
-        </GridLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</ScrollView>
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph_character_detail" />
+</FrameLayout>

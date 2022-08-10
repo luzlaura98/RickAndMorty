@@ -2,26 +2,26 @@ package com.luz.rickmorty.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 /**
  * Created by Luz on 3/8/2022.
  */
+@Keep
 data class Character(
     val id: Int,
     val name: String?,
     val status: String?,
     val species: String?,
-    val type: String?, //can be empty
-    val gender: String?, //Female
+    val type: String?,
+    val gender: String?,
     val image: String?,
     val origin: Location?,
     val location: Location?,
     @SerializedName("episode")
     val episodes: List<String>
 ) : Parcelable {
-
-    //constructor(c: CharacterResponse) : this(c.id, c.name, c.image)
 
     constructor(p: Parcel) : this(
         p.readInt(),

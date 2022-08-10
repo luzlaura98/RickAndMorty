@@ -2,12 +2,12 @@
     <string name="app_name">Rick And Morty</string>
 
     <!-- Api Error -->
-    <string name="internet_error">Sin conexión a internet</string>
-    <string name="time_out_error">Tiempo de Respuesta exedido</string>
-    <string name="port_connection_error">Error de conexión</string>
-    <string name="invalid_page_error">Página inválida</string>
-    <string name="unknown_error">Un error desconocido ocurrió</string>
-    <string name="server_error">Error del servidor</string>
+    <string name="internet_error">No internet connection</string>
+    <string name="time_out_error">The connection has timed out</string>
+    <string name="port_connection_error">Connection Error</string>
+    <string name="invalid_page_error">Invalid Page</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="server_error">Server Error</string>
     <string name="ssl_error">SSL Certificate Error</string>
     <string name="default_message_error">Something was wrong</string>
 
@@ -18,11 +18,12 @@
 
     <!--Placeholder-->
     <string name="placeholder_title">¡Ups!</string>
-    <string name="no_results">Nada por aquí</string>
+    <string name="no_results">Nothing here</string>
     <string name="retry_">Retry</string>
     <string name="ok_">OK</string>
 
     <!--Character Detail-->
+    <string name="character">Character</string>
     <string name="species">Species</string>
     <string name="type">Type</string>
     <string name="gender">Gender</string>
@@ -33,6 +34,5 @@
         <item formatted="true" quantity="one">%s appears in %s episode.</item>
         <item formatted="true" quantity="other">%s appears in %s episodes.</item>
     </plurals>
-
 
 </resources>

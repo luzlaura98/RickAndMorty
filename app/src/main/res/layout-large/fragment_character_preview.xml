@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/margin_app"
+        android:paddingVertical="@dimen/dimen_medium_0_size">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/imageContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/dimen_medium_0_size"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:maxHeight="@dimen/max_character_preview_size"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/img_sample_character" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tvCharacterName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_app"
+            android:textColor="?colorAccent"
+            android:textSize="@dimen/text_big_0_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageContainer"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Rick Large Name" />
+
+        <com.luz.rickmorty.ui.utils.StatusView
+            android:id="@+id/statusView"
+            style="@style/StatusViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_medium_0_size"
+            app:layout_constraintEnd_toEndOf="@id/tvCharacterName"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/tvCharacterName"
+            app:layout_constraintTop_toBottomOf="@id/tvCharacterName"
+            app:status="unknown" />
+
+        <TextView
+            android:id="@+id/tvQuantityEpisodes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_medium_1_size"
+            android:textColor="?colorPrimaryVariant"
+            android:textSize="@dimen/text_medium_0_size"
+            app:layout_constraintEnd_toEndOf="@id/tvCharacterName"
+            app:layout_constraintStart_toStartOf="@id/tvCharacterName"
+            app:layout_constraintTop_toBottomOf="@id/statusView"
+            tools:text="Rick appeared in 20 episodes." />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="imageContainer, tvQuantityEpisodes" />
+
+        <GridLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_medium_0_size"
+            android:columnCount="3"
+            android:useDefaultMargins="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barrier">
+
+            <com.luz.rickmorty.ui.utils.AttributeCharacterView
+                android:id="@+id/mSpecies"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                app:title="@string/species" />
+
+            <com.luz.rickmorty.ui.utils.AttributeCharacterView
+                android:id="@+id/mType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                app:title="@string/type" />
+
+            <com.luz.rickmorty.ui.utils.AttributeCharacterView
+                android:id="@+id/mGender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                app:title="@string/gender" />
+
+            <com.luz.rickmorty.ui.utils.AttributeCharacterView
+                android:id="@+id/mOrigin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                app:title="@string/origin" />
+
+            <com.luz.rickmorty.ui.utils.AttributeCharacterView
+                android:id="@+id/mLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                app:title="@string/location" />
+        </GridLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

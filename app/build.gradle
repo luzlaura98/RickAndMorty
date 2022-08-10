@@ -4,6 +4,7 @@ plugins {
     //added id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -42,6 +43,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.fragment:fragment-ktx:1.5.1'
 
     // SwipeRefreshLayout
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
@@ -53,6 +55,7 @@ dependencies {
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.13.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
 
     // Dagger Hilt
@@ -100,6 +103,7 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
     // endregion Navigation
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
