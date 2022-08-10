@@ -11,15 +11,5 @@ data class Episode(
     @SerializedName("name")
     val name : String?,
     @SerializedName("episode")
-    private val seasonEpisode : String? //S03E07
-){
-    val season : Int?
-    get() {
-        return null
-    }
-
-    val epi : Int?
-    get() {
-        return null
-    }
-}
+    private val seasonEpisode : String?
+)

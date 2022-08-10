@@ -57,13 +57,18 @@ class CharacterPreviewFragment : Fragment() {
 
     fun show(character: Character){
         context?:return
+
+        // If view was not created yet, pass args
         if (_binding == null){
             arguments = bundleOf(EXTRA_CHARACTER to character)
             return
         }
+
+        // If character is the previous one, no need to update
         if (character.id == binding.root.tag)
             return
 
+        // Showing first character
         if (!binding.root.isVisible){
             bindCharacter(character)
             binding.root.isVisible = true
@@ -72,6 +77,7 @@ class CharacterPreviewFragment : Fragment() {
             return
         }
 
+        // Hide previous character and show the new one
         binding.root.animateFadeOut {
             bindCharacter(character)
             binding.root.animateFadeIn()
@@ -111,7 +117,6 @@ class CharacterPreviewFragment : Fragment() {
             mLocation.show(character.location?.name)
         }
     }
-
 
     private fun View.animateFadeOut(endFun : (() -> Unit)? = null){
         animate().apply {

@@ -46,7 +46,7 @@ class CharacterDetailFragment : Fragment() {
         arguments?.getParcelable<Character>(EXTRA_CHARACTER)?.let { show(it) }
     }
 
-    fun show(character: Character){
+    private fun show(character: Character){
         context?:return; _binding?:return
         with(binding){
             Glide.with(requireContext()).load(character.image).centerCrop().into(ivCharacter)

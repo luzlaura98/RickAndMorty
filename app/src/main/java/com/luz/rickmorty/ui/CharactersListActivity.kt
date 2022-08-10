@@ -133,6 +133,13 @@ class CharactersListActivity : BaseActivity() {
         }
     }
 
+    /**
+     * In order to screen sizes of the device, [ActivityCharactersListBinding.fragmentContainerView]
+     * should be available or not.
+     *
+     * If it is available, [CharacterPreviewFragment] should display character.
+     * If it is not available, app should open [CharacterDetailActivity] showing character's detail.
+     * */
     private fun onClickCharacter(character: Character) {
         viewModel.lastCharacterSelected = character
         if (binding.fragmentContainerView != null){
