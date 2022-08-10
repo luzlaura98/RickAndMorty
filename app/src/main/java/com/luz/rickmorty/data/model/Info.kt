@@ -4,18 +4,25 @@ package com.luz.rickmorty.data.model
  * Created by Luz on 7/8/2022.
  */
 data class Info(
-    val count: Int = 0,
     val pages: Int,
     private val next: String?,
     private val prev: String?
 ) {
-    val nextPage: Int?
+    var nextPage: Int? = null
+        private set
         get() {
-            return next?.replace(("[^\\d]+").toRegex(), "")?.toIntOrNull()
+            if (field != null) return field
+            val p = next?.replace(("[^\\d-]+").toRegex(), "")?.toIntOrNull()
+            field = if (p == null || p <= 0) null else p
+            return field
         }
 
-    val prevPage: Int?
+    var prevPage: Int? = null
+        private set
         get() {
-            return prev?.replace(("[^\\d]+").toRegex(), "")?.toIntOrNull()
+            if (field != null) return field
+            val p = prev?.replace(("[^\\d-]+").toRegex(), "")?.toIntOrNull()
+            field = if (p == null || p <= 0) null else p
+            return field
         }
 }
